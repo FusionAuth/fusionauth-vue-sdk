@@ -14,10 +14,17 @@ export interface FusionAuthConfig {
    * The redirect URI of the application.
    */
   redirectUri?: string;
+
   /**
-   * TODO implement
+   * The window in milliseconds before the access token expires that the SDK will attempt to refresh the token.
+    */
+  accessTokenExpireWindow?: number;
+
+  /**
+   * Specifies the number of seconds before the expiry of the access token when the auto refresh functionality should kick in.
    */
   autoRefreshSecondsBeforeExpiry?: number;
+
   /**
    * The path to the login endpoint.
    */
