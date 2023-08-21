@@ -1,7 +1,8 @@
 import {App} from "vue";
 import {FusionAuthConfig} from "./types.ts";
 import * as components from './components';
-import {FusionAuthInjectionKey} from "./FusionAuthInjectionKey.ts";
+import {fusionAuthKey} from "./injectionSymbols.ts";
+import {createFusionAuth} from "./fusionAuth.ts";
 
 /**
  * Installation method for the FusionAuthVuePlugin.
@@ -23,7 +24,7 @@ const FusionAuthVuePlugin = {
     }
 
     // Provide the options to the app
-    app.provide(FusionAuthInjectionKey, options);
+    app.provide(fusionAuthKey, createFusionAuth(options));
 
     // Register the components
     Object.entries(components)
@@ -36,6 +37,5 @@ const FusionAuthVuePlugin = {
 export default FusionAuthVuePlugin;
 
 export * from "./components";
-export * from "./utils";
+export * from "./composables/useFusionAuth";
 export * from "./types";
-export {FusionAuthInjectionKey};

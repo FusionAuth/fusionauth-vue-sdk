@@ -36,13 +36,14 @@
   "files": [
     "dist/*"
   ],
-  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "main": "./dist/vue-fusionauth.umd.cjs",
   "module": "./dist/vue-fusionauth.js",
   "exports": {
     ".": {
-        "import": "./dist/vue-fusionauth.js",
-        "require": "./dist/vue-fusionauth.umd.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/vue-fusionauth.js",
+      "require": "./dist/vue-fusionauth.umd.cjs"
     },
     "./dist/*.css": {
       "import": "./dist/*.css",

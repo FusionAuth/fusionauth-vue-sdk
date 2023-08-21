@@ -5,19 +5,16 @@
 </template>
 
 <script setup lang="ts">
-import {inject} from "vue";
-import {login} from "../utils";
-import {FusionAuthInjectionKey} from "../FusionAuthInjectionKey";
+import {useFusionAuth} from "../composables/useFusionAuth.ts";
+
+const fusionAuth = useFusionAuth();
 
 const props = defineProps<{
   state?: string;
 }>();
 
-const config = inject(FusionAuthInjectionKey);
-
 function doLogin() {
-  if (!config) throw new Error("FusionAuth config not found. Provide config when installing plugin.");
-  login(config, props.state);
+  fusionAuth.login(props.state);
 }
 </script>
 

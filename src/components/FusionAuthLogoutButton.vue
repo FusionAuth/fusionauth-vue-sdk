@@ -5,15 +5,12 @@
 </template>
 
 <script setup lang="ts">
-import {inject} from "vue";
-import {logout} from "../utils";
-import {FusionAuthInjectionKey} from "../FusionAuthInjectionKey";
+import {useFusionAuth} from "../composables/useFusionAuth.ts";
 
-const config = inject(FusionAuthInjectionKey);
+const fusionAuth = useFusionAuth();
 
 function doLogout() {
-  if (!config) throw new Error("FusionAuth config not found. Provide config when installing plugin.");
-  logout(config);
+  fusionAuth.logout();
 }
 </script>
 

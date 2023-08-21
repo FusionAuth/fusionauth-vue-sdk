@@ -7,8 +7,10 @@
   font-weight: 600;
   text-align: center;
   color: var(--fusionauth-button-text-color, #fff);
+
   &:hover {
     cursor: pointer;
   }
+
   width: 400px;
 }

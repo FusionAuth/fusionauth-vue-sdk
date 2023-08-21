@@ -5,34 +5,31 @@
 </template>
 
 <script setup lang="ts">
-import {inject, onMounted, ref} from "vue";
-import {isLoggedIn, getUserInfo} from "../utils";
-import {FusionAuthInjectionKey} from "../FusionAuthInjectionKey";
-import {FusionAuthConfig} from "../types";
+import {onMounted, ref} from "vue";
+import {useFusionAuth} from "../composables/useFusionAuth";
+import type {FusionAuth} from "../types";
 
 const props = defineProps<{
   withRole?: string | string[];
 }>();
 
 const hasRole = ref(false);
-
-const config = inject(FusionAuthInjectionKey);
+const fusionAuth = useFusionAuth();
 
 onMounted(async () => {
-  if (!config) throw new Error("FusionAuth config not found. Provide config when installing plugin.");
-  hasRole.value = await checkRole(config);
+  hasRole.value = await checkRole(fusionAuth);
 });
 
 /**
  * Checks if the user has the specified role(s).
  *
- * @param {FusionAuthConfig} config - The configuration object for FusionAuth.
+ * @param {FusionAuth} fusionAuth - Instance of the FusionAuth client.
  * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating if the user has the role(s).
  */
-async function checkRole(config: FusionAuthConfig): Promise<boolean> {
-  if (isLoggedIn()) {
+async function checkRole(fusionAuth: FusionAuth): Promise<boolean> {
+  if (fusionAuth.isLoggedIn()) {
     if (props.withRole) {
-      const userInfo = await getUserInfo(config);
+      const userInfo = await fusionAuth.getUserInfo();
       const roles = Array.isArray(props.withRole) ? props.withRole : [props.withRole];
       return !!userInfo.roles?.some(role => roles.includes(role.name));
     }
