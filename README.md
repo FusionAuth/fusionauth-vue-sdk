@@ -98,7 +98,8 @@ If you want to use the pre-styled buttons, don't forget to import the css file:
 import '@fusionauth/vue-sdk/dist/style.css';
 ```
 
-## Server Code Requirements
+<!-- this is pulled into docs and our link checker complains if we don't have the id tag here -->
+<h2 id="server-code-requirements">Server Code Requirements</h2>
 
 The FusionAuth Vue SDK was built against the [Hosted Backend API](https://fusionauth.io/docs/v1/tech/apis/hosted-backend), but can also be used with any server that will perform the OAuth token exchange. This server must have the following endpoints:
 
