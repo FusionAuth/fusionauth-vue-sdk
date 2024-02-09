@@ -18,6 +18,8 @@ An SDK for using FusionAuth in Vue applications.
 
 -   [Documentation](#documentation)
 
+-   [Quickstart](#quickstart)
+
 -   [Releases](#releases)
 
 <!--
@@ -236,7 +238,7 @@ user can be returned to that location after a successful authentication.
 
 See the [FusionAuth Vue Quickstart](https://fusionauth.io/docs/quickstarts/quickstart-javascript-vue-web) for more information.
 
-# Documentation
+## Documentation
 
 [Full library
 documentation](https://github.com/FusionAuth/fusionauth-vue-sdk/blob/main/docs/documentation.md)
@@ -247,6 +249,6 @@ end::forDocSite[]
 
 Use backticks for code in this readme. This readme gets turned into asciidoc and included on the fusionauth website, and backticks show the code in the best light there.
 
-# Releases
+## Releases
 
 To perform a release to NPM, create a release on GitHub. That will automatically publish a release to GitHub.
