@@ -26,11 +26,11 @@ this tag, and the corresponding end tag, are used to delineate what is pulled in
 Please also use ``` instead of indenting for code blocks. The backticks are translated correctly to adoc format.
 -->
 
+# Overview
+
 <!--
 tag::forDocSite[]
 -->
-
-# Overview
 
 This SDK allows you to add login, logout, and registration buttons to
 your Vue application. You can do this via pre-built buttons, or with
@@ -60,9 +60,9 @@ Requirements](#server-code-requirements) for more details.
 You can use this library against any version of FusionAuth or any OIDC
 compliant identity server.
 
-# Getting Started
+## Getting Started
 
-## Installation
+### Installation
 
 NPM:
 
@@ -76,7 +76,7 @@ Yarn:
 yarn add @fusionauth/vue-sdk
 ```
 
-## Configuring the Vue SDK
+### Configuring the Vue SDK
 
 To configure the SDK, initialize the `FusionAuthVuePlugin` when you init your Vue app:
 
@@ -103,7 +103,7 @@ import '@fusionauth/vue-sdk/dist/style.css';
 
 The FusionAuth Vue SDK was built against the [Hosted Backend API](https://fusionauth.io/docs/v1/tech/apis/hosted-backend), but can also be used with any server that will perform the OAuth token exchange. This server must have the following endpoints:
 
-### `GET /app/login`
+#### `GET /app/login`
 
 This endpoint must:
 
@@ -113,7 +113,7 @@ This endpoint must:
 2.  Encode and save `redirect_url` from vue app to `state`.
 3.  Redirect browser to `/oauth2/authorize` with a `redirect_uri` to `/app/token-exchange`
 
-### `GET /app/callback`
+#### `GET /app/callback`
 
 This endpoint must:
 
@@ -140,7 +140,7 @@ This endpoint must:
     to retrieve the user info object and respond back to the client with
     this object.
 
-### `GET /app/register`
+#### `GET /app/register`
 
 This endpoint is similar to `/login`.  It must:
 
@@ -150,14 +150,14 @@ This endpoint is similar to `/login`.  It must:
 2.  Encode and save `redirect_url` from vue app to `state`.
 3.  Redirect browser to `/oauth2/register` with a `redirect_uri` to `/app/callback`
 
-### `GET /app/me`
+#### `GET /app/me`
 
 This endpoint must:
 
 1.  Use `app.at` from cookie and use as the Bearer token to call `/oauth2/userinfo`
 2.  Return json data
 
-### `GET /app/logout`
+#### `GET /app/logout`
 
 This endpoint must:
 
@@ -166,7 +166,7 @@ This endpoint must:
 2.  Clear the `app.at_exp` and `app.idt` secure cookies.
 3.  Redirect to `/oauth2/logout`
 
-### `POST /app/refresh` (optional)
+#### `POST /app/refresh` (optional)
 
 This endpoint is necessary if you wish to use refresh tokens. This
 endpoint must:
@@ -178,9 +178,9 @@ endpoint must:
 2.  Update the `app.at`, `app.at_exp`, `app.idt`, and `app.rt` cookies from the
     response.
 
-# Usage
+## Usage
 
-## Pre-built buttons
+### Pre-built buttons
 
 There are three pre-styled buttons that are configured to perform
 login/logout/registration. They can be placed anywhere in your app as
@@ -203,7 +203,7 @@ is.
 
 With the CSS variables, you can customize the buttons to match your app’s style.
 
-## Service usage
+### Service usage
 
 Alternatively, you may interact with the SDK Service by using the composable `useFusionAuth`.
 
@@ -221,7 +221,7 @@ Alternatively, you may interact with the SDK Service by using the composable `us
 </script>
 ```
 
-### State parameter
+#### State parameter
 
 The `login` and `register` functions both accept an optional string
 parameter called `state`. The login and register components can also be passed the
@@ -232,11 +232,9 @@ pass any value you would like for the state parameter, it is often used to indic
 which page the user was on before redirecting to login or registration, so that the
 user can be returned to that location after a successful authentication.
 
-<!--
-# Quickstart
+## Quickstart
 
 See the [FusionAuth Vue Quickstart](https://fusionauth.io/docs/quickstarts/quickstart-javascript-vue-web) for more information.
--->
 
 # Documentation
 
