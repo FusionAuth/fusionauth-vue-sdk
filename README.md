@@ -247,7 +247,7 @@ documentation](https://github.com/FusionAuth/fusionauth-vue-sdk/blob/main/docs/d
 end::forDocSite[]
 -->
 
-Use backticks for code in this readme. This readme gets turned into asciidoc and included on the fusionauth website, and backticks show the code in the best light there.
+Use backticks for code in this readme. This readme is included on the fusionauth website, and backticks show the code in the best light there.
 
 ## Releases
 
