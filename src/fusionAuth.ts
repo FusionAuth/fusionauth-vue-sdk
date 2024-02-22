@@ -1,12 +1,13 @@
 import type {FusionAuth, FusionAuthConfig, UserInfo} from "./types";
-import {doRedirectForPath, getExpTime, getURLForPath} from "./utils";
+import {doRedirectForPath, getExpTime, getFormattedPath, getURLForPath} from "./utils";
+
 
 const DEFAULT_ACCESS_TOKEN_EXPIRE_WINDOW = 30000;
 
 export const createFusionAuth = (config: FusionAuthConfig): FusionAuth => {
 
   async function getUserInfo(): Promise<UserInfo> {
-    const path = config.mePath ?? '/app/me';
+    const path = getFormattedPath(config.mePath, '/app/me');
     const uri = getURLForPath(config, path);
     let resp = await fetch(uri, {
       credentials: 'include',
@@ -19,12 +20,12 @@ export const createFusionAuth = (config: FusionAuthConfig): FusionAuth => {
   }
 
   function login(state?: string): void {
-    const path = config.loginPath ?? '/app/login';
+    const path = getFormattedPath(config.loginPath, '/app/login');
     doRedirectForPath(config, path, {state});
   }
 
   function logout(): void {
-    const path = config.logoutPath ?? '/app/logout';
+    const path = getFormattedPath(config.logoutPath, '/app/logout');
     doRedirectForPath(config, path);
   }
 
@@ -33,7 +34,8 @@ export const createFusionAuth = (config: FusionAuthConfig): FusionAuth => {
     const expiresAt = getExpTime();
     if (!expiresAt || expiresAt > Date.now() + timeWindow) return;
 
-    const path = `${config.tokenRefreshPath ?? '/app/refresh'}/${config.clientId}`;
+    const tokenRefreshPath = getFormattedPath(config.tokenRefreshPath, '/app/refresh');
+    const path = `${tokenRefreshPath}/${config.clientId}`;
     const uri = getURLForPath(config, path);
     const resp = await fetch(uri, {
       method: 'POST',
