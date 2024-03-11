@@ -11,7 +11,6 @@
 
   const props = defineProps<{
     state?: string;
-    onThing?: () => string;
   }>();
 
   function doLogin() {
