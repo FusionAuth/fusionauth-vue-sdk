@@ -8,8 +8,6 @@ An SDK for using FusionAuth in Vue applications.
 
 -   [Installation](#installation)
 
--   [Server Code Requirements](#server-code-requirements)
-
 -   [Usage](#usage)
 
 -   [Pre-built buttons](#pre-built-buttons)
@@ -55,9 +53,11 @@ will be set:
 The access token can be presented to APIs to authorize the request and
 the refresh token can be used to get a new access token.
 
-Note that this SDK requires you to have a server that performs the OAuth
-token exchange. See [Server Code
-Requirements](#server-code-requirements) for more details.
+There are 2 ways to interact with this SDK:
+1. By hosting your own server that performs the OAuth token exchange and meets the [server code requirements for FusionAuth Web SDKs](https://github.com/FusionAuth/fusionauth-javascript-sdk-express#server-code-requirements).
+2. By using the server hosted on your FusionAuth instance, i.e., not writing your own server code.
+
+If you are hosting your own server, see [server code requirements](https://github.com/FusionAuth/fusionauth-javascript-sdk-express#server-code-requirements).
 
 You can use this library against any version of FusionAuth or any OIDC
 compliant identity server.
@@ -99,86 +99,6 @@ If you want to use the pre-styled buttons, don't forget to import the css file:
 ```typescript
 import '@fusionauth/vue-sdk/dist/style.css';
 ```
-
-<!-- this is pulled into docs and our link checker complains if we don't have the id tag here -->
-<h2 id="server-code-requirements">Server Code Requirements</h2>
-
-The FusionAuth Vue SDK was built against the [Hosted Backend API](https://fusionauth.io/docs/v1/tech/apis/hosted-backend), but can also be used with any server that will perform the OAuth token exchange. This server must have the following endpoints:
-
-#### `GET /app/login`
-
-This endpoint must:
-
-1.  Generate PKCE code.
-    a. The code verifier should be saved in a secure HTTP-only cookie.
-    b. The code challenge is passed along
-2.  Encode and save `redirect_url` from vue app to `state`.
-3.  Redirect browser to `/oauth2/authorize` with a `redirect_uri` to `/app/token-exchange`
-
-#### `GET /app/callback`
-
-This endpoint must:
-
-1.  Call
-    [/oauth2/token](https://fusionauth.io/docs/v1/tech/oauth/endpoints#complete-the-authorization-code-grant-request)
-    to complete the Authorization Code Grant request. The `code` comes from the request query parameter and
-    `code_verifier` should be available in the secure HTTP-only cookie, while
-    the rest of the parameters should be set/configured on the server
-    side.
-
-2.  Once the token exchange succeeds, read the `app.at` from the
-    response body and set it as a secure, HTTP-only cookie with the same
-    name.
-
-3.  If you wish to support refresh tokens, repeat step 2 for the
-    `app.rt` cookie.
-
-4.  Save the expiration time in a readable `app.at_exp` cookie.  And save the `app.idt` id token in a readable cookie.
-
-5.  Redirect browser back to encoded url saved in `state`.
-
-4.  Call
-    [/oauth2/userinfo](https://fusionauth.io/docs/v1/tech/oauth/endpoints#userinfo)
-    to retrieve the user info object and respond back to the client with
-    this object.
-
-#### `GET /app/register`
-
-This endpoint is similar to `/login`.  It must:
-
-1.  Generate PKCE code.
-    a. The code verifier should be saved in a secure HTTP-only cookie.
-    b. The code challenge is passed along
-2.  Encode and save `redirect_url` from vue app to `state`.
-3.  Redirect browser to `/oauth2/register` with a `redirect_uri` to `/app/callback`
-
-#### `GET /app/me`
-
-This endpoint must:
-
-1.  Use `app.at` from cookie and use as the Bearer token to call `/oauth2/userinfo`
-2.  Return json data
-
-#### `GET /app/logout`
-
-This endpoint must:
-
-1.  Clear the `app.at` and `app.rt` secure, HTTP-only
-    cookies.
-2.  Clear the `app.at_exp` and `app.idt` secure cookies.
-3.  Redirect to `/oauth2/logout`
-
-#### `POST /app/refresh` (optional)
-
-This endpoint is necessary if you wish to use refresh tokens. This
-endpoint must:
-
-1.  Call
-    [/oauth2/token](https://fusionauth.io/docs/v1/tech/oauth/endpoints#refresh-token-grant-request)
-    to get a new `app.at` and `app.rt`.
-
-2.  Update the `app.at`, `app.at_exp`, `app.idt`, and `app.rt` cookies from the
-    response.
 
 ## Usage
 
