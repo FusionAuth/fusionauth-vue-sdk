@@ -1,3 +1,5 @@
+*This repo is out of date and is archived. `@fusionauth/vue-sdk` is currently maintained at https://github.com/FusionAuth/fusionauth-javascript-sdk/tree/main/packages/sdk-vue.*
+
 An SDK for using FusionAuth in Vue applications.
 
 == Table of Contents
