@@ -26,29 +26,6 @@
             }
           ],
           "source": {
-            "module": "./src/components/FusionAuthLoginButton.vue",
-            "symbol": "default"
-          }
-        },
-        {
-          "name": "FusionAuthLoginButton",
-          "description": "",
-          "attributes": [
-            {
-              "name": "state",
-              "required": false,
-              "value": {
-                "kind": "expression",
-                "type": "string"
-              }
-            }
-          ],
-          "slots": [
-            {
-              "name": "default"
-            }
-          ],
-          "source": {
             "module": "./src/components/FusionAuthLoginButton/FusionAuthLoginButton.vue",
             "symbol": "default"
           }
